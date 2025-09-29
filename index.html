@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUNDEB - Explicação do Cálculo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body style="background: linear-gradient(135deg, var(--cream-white) 0%, #faf8f5 50%, var(--cream-white) 100%); color: var(--charcoal);">
+    <!-- Header -->
+    <header class="shadow-lg" style="background: linear-gradient(135deg, var(--mocha-mousse) 0%, var(--rich-earth) 100%); color: white;">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold">FUNDEB</h1>
+                    <p class="text-blue-100 mt-1">Fundo de Manutenção e Desenvolvimento da Educação Básica</p>
+                </div>
+                <i class="fas fa-graduation-cap text-4xl"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex overflow-x-auto">
+                <a href="#intro" class="nav-link px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 border-transparent hover:border-blue-500">
+                    <i class="fas fa-info-circle mr-2"></i>Introdução
+                </a>
+                <a href="#composicao" class="nav-link px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 border-transparent hover:border-blue-500">
+                    <i class="fas fa-chart-pie mr-2"></i>Composição
+                </a>
+                <a href="#complementacao" class="nav-link px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 border-transparent hover:border-blue-500">
+                    <i class="fas fa-plus-circle mr-2"></i>Complementação
+                </a>
+                <a href="#implementacao" class="nav-link px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 border-transparent hover:border-blue-500">
+                    <i class="fas fa-calendar-alt mr-2"></i>Implementação
+                </a>
+                <a href="#matriculas" class="nav-link px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 border-transparent hover:border-blue-500">
+                    <i class="fas fa-users mr-2"></i>Matrículas
+                </a>
+                <a href="#calculadora" class="nav-link px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 border-transparent hover:border-blue-500">
+                    <i class="fas fa-calculator mr-2"></i>Calculadora
+                </a>
+                <a href="#glossario" class="nav-link px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 border-transparent hover:border-blue-500">
+                    <i class="fas fa-book mr-2"></i>Glossário
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Introdução -->
+        <section id="intro" class="mb-12">
+            <div class="section-card bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold mb-4" style="color: var(--mocha-mousse);">
+                    <i class="fas fa-info-circle mr-3"></i>O que é o FUNDEB?
+                </h2>
+                <div class="prose max-w-none">
+                    <p class="text-lg text-gray-700 mb-4">
+                        O Fundo de Manutenção e Desenvolvimento da Educação Básica (FUNDEB) é um importante mecanismo de financiamento da educação pública no Brasil, regulamentado pela Lei nº 14.113/2020.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2" style="color: var(--rich-earth);">
+                                <i class="fas fa-target mr-2"></i>Objetivos
+                            </h3>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• Garantir financiamento adequado à educação básica</li>
+                                <li>• Reduzir desigualdades educacionais</li>
+                                <li>• Promover equidade entre estados e municípios</li>
+                                <li>• Melhorar a qualidade do ensino público</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-2" style="color: var(--sage-green);">
+                                <i class="fas fa-cogs mr-2"></i>Características
+                            </h3>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• 27 fundos (um por estado + DF)</li>
+                                <li>• Distribuição baseada em matrículas</li>
+                                <li>• Complementação federal de 23%</li>
+                                <li>• Ponderações por etapa e modalidade</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Composição do FUNDEB -->
+        <section id="composicao" class="mb-12">
+            <div class="section-card bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold mb-4" style="color: var(--sage-green);">
+                    <i class="fas fa-chart-pie mr-3"></i>Composição do FUNDEB
+                </h2>
+                
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Distribuição de Recursos</h3>
+                        <div class="chart-container">
+                            <canvas id="compositionChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Fontes de Recursos</h3>
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-blue-700 mb-2">
+                                    <i class="fas fa-building mr-2"></i>Contribuição Estados/Municípios (77%)
+                                </h4>
+                                <p class="text-sm text-gray-700 mb-2">20% da arrecadação de:</p>
+                                <ul class="text-xs text-gray-600 grid grid-cols-2 gap-1">
+                                    <li>• FPM (Fundo Part. Municípios)</li>
+                                    <li>• FPE (Fundo Part. Estados)</li>
+                                    <li>• ITR (Imposto Territorial Rural)</li>
+                                    <li>• IPI-exp (IPI Exportação)</li>
+                                    <li>• ITCMD (Transmissão Causa Mortis)</li>
+                                    <li>• IPVA (Imposto Propriedade Veicular)</li>
+                                    <li>• ICMS (Circulação Mercadorias)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-green-700 mb-2">
+                                    <i class="fas fa-hand-holding-usd mr-2"></i>Complementação da União (23%)
+                                </h4>
+                                <div class="text-xs text-gray-600 space-y-1">
+                                    <div class="flex justify-between">
+                                        <span>• VAAF (Valor Anual por Aluno do Fundeb)</span>
+                                        <span class="font-medium">10%</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>• VAAT (Valor Anual por Aluno Total)</span>
+                                        <span class="font-medium">10,5%</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>• VAAR (Valor por Aluno-Resultado)</span>
+                                        <span class="font-medium">2,5%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modalidades de Complementação -->
+        <section id="complementacao" class="mb-12">
+            <div class="section-card bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-purple-600 mb-6">
+                    <i class="fas fa-plus-circle mr-3"></i>Modalidades de Complementação da União
+                </h2>
+                
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- VAAF -->
+                    <div class="complementation-card border rounded-lg p-4 hover:shadow-lg transition-all" style="border-color: var(--warm-sand); background: linear-gradient(135deg, var(--cream-white) 0%, #fefcf8 100%);">
+                        <div class="text-center mb-4">
+                            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2" style="background: linear-gradient(135deg, var(--mocha-mousse) 0%, var(--warm-sand) 100%);">
+                                <i class="fas fa-chart-line text-white text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold" style="color: var(--mocha-mousse);">VAAF</h3>
+                            <p class="text-sm text-gray-600">Valor Anual por Aluno do Fundeb</p>
+                            <div class="text-white px-3 py-1 rounded-full text-sm font-bold mt-2" style="background: var(--mocha-mousse);">10%</div>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="bg-gray-50 p-3 rounded">
+                                <h4 class="font-semibold text-sm mb-1">Objetivo</h4>
+                                <p class="text-xs text-gray-700">Garantir valor mínimo nacional por aluno em cada estado</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-3 rounded">
+                                <h4 class="font-semibold text-sm mb-1">Como Funciona</h4>
+                                <p class="text-xs text-gray-700">Complementa quando VAAF do estado < VAAF-MIN nacional</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-3 rounded">
+                                <h4 class="font-semibold text-sm mb-1">Distribuição</h4>
+                                <p class="text-xs text-gray-700">Por coeficiente baseado em matrículas ponderadas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VAAT -->
+                    <div class="complementation-card border rounded-lg p-4 hover:shadow-lg transition-all" style="border-color: var(--sage-green); background: linear-gradient(135deg, var(--cream-white) 0%, #f8f9f6 100%);">
+                        <div class="text-center mb-4">
+                            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2" style="background: linear-gradient(135deg, var(--sage-green) 0%, #b8c5a4 100%);">
+                                <i class="fas fa-balance-scale text-white text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold" style="color: var(--sage-green);">VAAT</h3>
+                            <p class="text-sm text-gray-600">Valor Anual por Aluno Total</p>
+                            <div class="text-white px-3 py-1 rounded-full text-sm font-bold mt-2" style="background: var(--sage-green);">10,5%</div>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="bg-gray-50 p-3 rounded">
+                                <h4 class="font-semibold text-sm mb-1">Objetivo</h4>
+                                <p class="text-xs text-gray-700">Reduzir desigualdades entre entes federados</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-3 rounded">
+                                <h4 class="font-semibold text-sm mb-1">Como Funciona</h4>
+                                <p class="text-xs text-gray-700">Considera toda receita vinculada à educação do ente</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-3 rounded">
+                                <h4 class="font-semibold text-sm mb-1">Distribuição</h4>
+                                <p class="text-xs text-gray-700">Diretamente aos entes com VAAT < VAAT-MIN</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VAAR -->
+                    <div class="complementation-card border rounded-lg p-4 hover:shadow-lg transition-all" style="border-color: var(--dusty-rose); background: linear-gradient(135deg, var(--cream-white) 0%, #faf8f5 100%);">
+                        <div class="text-center mb-4">
+                            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2" style="background: linear-gradient(135deg, var(--dusty-rose) 0%, #e0b888 100%);">
+                                <i class="fas fa-trophy text-white text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold" style="color: var(--dusty-rose);">VAAR</h3>
+                            <p class="text-sm text-gray-600">Valor por Aluno-Resultado</p>
+                            <div class="text-white px-3 py-1 rounded-full text-sm font-bold mt-2" style="background: var(--dusty-rose);">2,5%</div>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="bg-gray-50 p-3 rounded">
+                                <h4 class="font-semibold text-sm mb-1">Objetivo</h4>
+                                <p class="text-xs text-gray-700">Premiar melhoria da aprendizagem e gestão</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-3 rounded">
+                                <h4 class="font-semibold text-sm mb-1">Como Funciona</h4>
+                                <p class="text-xs text-gray-700">Baseado em indicadores do SAEB e condicionalidades</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-3 rounded">
+                                <h4 class="font-semibold text-sm mb-1">Distribuição</h4>
+                                <p class="text-xs text-gray-700">Por coeficientes de melhoria educacional</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Implementação Progressiva -->
+        <section id="implementacao" class="mb-12">
+            <div class="section-card bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-orange-600 mb-4">
+                    <i class="fas fa-calendar-alt mr-3"></i>Implementação Progressiva (2021-2026)
+                </h2>
+                
+                <div class="mb-6">
+                    <p class="text-gray-700 mb-4">
+                        A complementação da União está sendo implementada gradualmente, partindo de 12% em 2021 até atingir 23% a partir de 2026:
+                    </p>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="implementation-table w-full border-collapse bg-white rounded-lg overflow-hidden shadow-sm">
+                        <thead class="text-white" style="background: linear-gradient(135deg, var(--dusty-rose) 0%, var(--rich-earth) 100);">
+                            <tr>
+                                <th class="border border-orange-400 px-4 py-3 text-left font-semibold">Ano</th>
+                                <th class="border border-orange-400 px-4 py-3 text-center font-semibold">VAAF</th>
+                                <th class="border border-orange-400 px-4 py-3 text-center font-semibold">VAAT</th>
+                                <th class="border border-orange-400 px-4 py-3 text-center font-semibold">VAAR</th>
+                                <th class="border border-orange-400 px-4 py-3 text-center font-semibold">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="implementationTable">
+                            <!-- Table rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-6">
+                    <div class="chart-container">
+                        <canvas id="implementationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Metodologia de Matrículas -->
+        <section id="matriculas" class="mb-12">
+            <div class="section-card bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-indigo-600 mb-4">
+                    <i class="fas fa-users mr-3"></i>Metodologia de Cálculo das Matrículas
+                </h2>
+                
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Processo de Apuração</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-indigo-100 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <span class="text-indigo-600 font-bold text-sm">1</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Censo Escolar</h4>
+                                    <p class="text-sm text-gray-600">Matrículas presenciais efetivas apuradas pelo INEP</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-indigo-100 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <span class="text-indigo-600 font-bold text-sm">2</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Filtragem</h4>
+                                    <p class="text-sm text-gray-600">Metodologia definida pelas Secretarias do MEC</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-indigo-100 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <span class="text-indigo-600 font-bold text-sm">3</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Ponderação</h4>
+                                    <p class="text-sm text-gray-600">Aplicação de fatores por etapa, modalidade e jornada</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-indigo-100 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <span class="text-indigo-600 font-bold text-sm">4</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Socioeconômico</h4>
+                                    <p class="text-sm text-gray-600">Aplicação do ponderador de nível socioeconômico</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Fatores de Ponderação</h3>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700 mb-3">
+                                As matrículas recebem pesos diferentes baseados em:
+                            </p>
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <div>
+                                    <h5 class="font-semibold text-gray-800 mb-1">Etapas</h5>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• Educação Infantil</li>
+                                        <li>• Ensino Fundamental</li>
+                                        <li>• Ensino Médio</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gray-800 mb-1">Modalidades</h5>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• Educação Especial</li>
+                                        <li>• Educação Indígena</li>
+                                        <li>• Educação do Campo</li>
+                                        <li>• EJA</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gray-800 mb-1">Jornada</h5>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• Parcial</li>
+                                        <li>• Integral</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gray-800 mb-1">Estabelecimento</h5>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• Urbano</li>
+                                        <li>• Rural</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simuladores FUNDEB -->
+        <section id="calculadora" class="mb-12">
+            <div class="section-card bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-red-600 mb-6">
+                    <i class="fas fa-calculator mr-3"></i>Simuladores FUNDEB
+                </h2>
+                
+                <!-- Tab Navigation -->
+                <div class="border-b border-gray-200 mb-6">
+                    <nav class="-mb-px flex space-x-8">
+                        <button class="simulator-tab py-2 px-1 border-b-2 border-blue-500 font-medium text-sm text-blue-600" data-tab="vaaf">
+                            <i class="fas fa-chart-line mr-2"></i>VAAF
+                        </button>
+                        <button class="simulator-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="vaat">
+                            <i class="fas fa-balance-scale mr-2"></i>VAAT
+                        </button>
+                        <button class="simulator-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="vaar">
+                            <i class="fas fa-trophy mr-2"></i>VAAR
+                        </button>
+                        <button class="simulator-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="municipio">
+                            <i class="fas fa-map-marker-alt mr-2"></i>Por Município
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- VAAF Simulator -->
+                <div id="vaaf-simulator" class="simulator-content">
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4 text-blue-600">
+                                <i class="fas fa-chart-line mr-2"></i>Simulação VAAF
+                            </h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                Simule a complementação VAAF baseada em matrículas ponderadas e receita estimada do ente federado.
+                            </p>
+                            
+                            <form id="vaafCalculator" class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        Matrículas Ponderadas
+                                    </label>
+                                    <input type="number" id="vaafMatriculas" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: 245368" value="245368">
+                                    <p class="text-xs text-gray-500 mt-1">Considera fatores de ponderação por etapa, modalidade e jornada</p>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        Receita Estimada do FUNDEB (R$)
+                                    </label>
+                                    <input type="number" id="vaafReceita" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: 1334314355" value="1334314355">
+                                    <p class="text-xs text-gray-500 mt-1">20% dos impostos e transferências (FPM, FPE, ICMS, etc.)</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        VAAF Mínimo Nacional (R$)
+                                    </label>
+                                    <input type="number" id="vaafMin" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: 5447.98" value="5447.98" step="0.01">
+                                    <p class="text-xs text-gray-500 mt-1">Valor mínimo nacional definido pelo MEC</p>
+                                </div>
+                                
+                                <button type="submit" class="calculator-button w-full text-white py-2 px-4 rounded-md transition-colors" style="background: var(--mocha-mousse);" onmouseover="this.style.background='var(--rich-earth)'" onmouseout="this.style.background='var(--mocha-mousse)'">
+                                    <i class="fas fa-calculator mr-2"></i>Calcular VAAF
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4">Resultado VAAF</h3>
+                            <div id="vaafResult" class="result-card bg-blue-50 p-4 rounded-lg">
+                                <p class="text-gray-600 text-center">Preencha os dados e calcule para ver o resultado da complementação VAAF.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VAAT Simulator -->
+                <div id="vaat-simulator" class="simulator-content hidden">
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4 text-green-600">
+                                <i class="fas fa-balance-scale mr-2"></i>Simulação VAAT
+                            </h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                Calcule o VAAT considerando toda a receita vinculada à educação do ente federado.
+                            </p>
+                            
+                            <form id="vaatCalculator" class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        Matrículas Ponderadas (VAAT)
+                                    </label>
+                                    <input type="number" id="vaatMatriculas" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: 180000" value="180000">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        25% Impostos e Transferências (R$)
+                                    </label>
+                                    <input type="number" id="vaat25Impostos" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: 15000000" value="15000000">
+                                    <p class="text-xs text-gray-500 mt-1">25% dos impostos próprios e transferências constitucionais</p>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        Receita FUNDEB (R$)
+                                    </label>
+                                    <input type="number" id="vaatFundeb" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: 8000000" value="8000000">
+                                    <p class="text-xs text-gray-500 mt-1">Contribuição + complementação VAAF recebida</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        Salário-Educação e Outros (R$)
+                                    </label>
+                                    <input type="number" id="vaatOutros" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: 500000" value="500000">
+                                    <p class="text-xs text-gray-500 mt-1">Quota municipal do salário-educação e programas universais</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        VAAT Mínimo Nacional (R$)
+                                    </label>
+                                    <input type="number" id="vaatMin" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: 7000" value="7000" step="0.01">
+                                </div>
+                                
+                                <button type="submit" class="calculator-button w-full text-white py-2 px-4 rounded-md transition-colors" style="background: var(--sage-green);" onmouseover="this.style.background='var(--success)'" onmouseout="this.style.background='var(--sage-green)'">
+                                    <i class="fas fa-calculator mr-2"></i>Calcular VAAT
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4">Resultado VAAT</h3>
+                            <div id="vaatResult" class="result-card bg-green-50 p-4 rounded-lg">
+                                <p class="text-gray-600 text-center">Configure os parâmetros e calcule o VAAT e possível complementação.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Municipal Simulator -->
+                <div id="municipio-simulator" class="simulator-content hidden">
+                    <div class="space-y-6">
+                        <!-- Location Selection -->
+                        <div class="bg-indigo-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-4 text-indigo-700">
+                                <i class="fas fa-map-marker-alt mr-2"></i>Seleção de Município
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Estado (UF)</label>
+                                    <select id="selectUF" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <option value="">Selecione o Estado</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Município</label>
+                                    <select id="selectMunicipio" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md" disabled>
+                                        <option value="">Primeiro selecione o Estado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Current Data Display -->
+                        <div id="municipioData" class="hidden">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-gray-700 mb-3">
+                                    <i class="fas fa-info-circle mr-2"></i>Dados Atuais do Município
+                                </h4>
+                                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                                    <div>
+                                        <h5 class="font-medium text-gray-600 mb-2">Receitas FUNDEB (2024)</h5>
+                                        <div class="space-y-1">
+                                            <div class="flex justify-between">
+                                                <span>Contribuição:</span>
+                                                <span id="currentContribuicao" class="font-medium">-</span>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span>Compl. VAAF:</span>
+                                                <span id="currentVAAF" class="font-medium text-blue-600">-</span>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span>Compl. VAAT:</span>
+                                                <span id="currentVAAT" class="font-medium text-green-600">-</span>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span>Compl. VAAR:</span>
+                                                <span id="currentVAAR" class="font-medium text-purple-600">-</span>
+                                            </div>
+                                            <div class="flex justify-between border-t pt-1">
+                                                <span class="font-semibold">Total:</span>
+                                                <span id="currentTotal" class="font-semibold text-indigo-600">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-span-2">
+                                        <h5 class="font-medium text-gray-600 mb-2">Matrículas por Etapa/Modalidade</h5>
+                                        <div class="grid grid-cols-2 gap-3 text-xs">
+                                            <div class="space-y-1">
+                                                <div class="flex justify-between">
+                                                    <span>Ed. Infantil:</span>
+                                                    <span id="currentInfantil" class="font-medium">-</span>
+                                                </div>
+                                                <div class="flex justify-between">
+                                                    <span>Fund. I (1º-5º):</span>
+                                                    <span id="currentFundI" class="font-medium">-</span>
+                                                </div>
+                                                <div class="flex justify-between">
+                                                    <span>Fund. II (6º-9º):</span>
+                                                    <span id="currentFundII" class="font-medium">-</span>
+                                                </div>
+                                                <div class="flex justify-between">
+                                                    <span>Médio Integral:</span>
+                                                    <span id="currentMedioInt" class="font-medium">-</span>
+                                                </div>
+                                            </div>
+                                            <div class="space-y-1">
+                                                <div class="flex justify-between">
+                                                    <span>Médio Parcial:</span>
+                                                    <span id="currentMedioPar" class="font-medium">-</span>
+                                                </div>
+                                                <div class="flex justify-between">
+                                                    <span>EJA:</span>
+                                                    <span id="currentEJA" class="font-medium">-</span>
+                                                </div>
+                                                <div class="flex justify-between">
+                                                    <span>Ed. Especial:</span>
+                                                    <span id="currentEspecial" class="font-medium">-</span>
+                                                </div>
+                                                <div class="flex justify-between">
+                                                    <span>Ed. Profissional:</span>
+                                                    <span id="currentProfissional" class="font-medium">-</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ponderações Configuration -->
+                            <div class="bg-white p-4 rounded-lg border mb-4" style="border-color: var(--mocha-mousse);">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 class="font-semibold mb-0" style="color: var(--mocha-mousse);">
+                                        <i class="fas fa-balance-scale mr-2"></i>Configurar Fatores de Ponderação
+                                    </h4>
+                                    <button type="button" id="togglePonderacao" class="text-sm px-3 py-1 rounded text-white" style="background: var(--sage-green);">
+                                        <i class="fas fa-cog mr-1"></i>Editar
+                                    </button>
+                                </div>
+                                
+                                <div id="ponderacaoSection" class="hidden">
+                                    <div class="mb-3 p-2 rounded text-sm" style="background: var(--cream-white); color: var(--charcoal); border: 1px solid var(--warm-sand);">
+                                        <i class="fas fa-info-circle mr-1"></i>
+                                        <strong>Atenção:</strong> Alterar as ponderações permite testar cenários hipotéticos de política educacional. Os valores oficiais da Lei nº 14.113/2020 são restaurados automaticamente.
+                                    </div>
+                                    
+                                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+                                        <div>
+                                            <label class="block text-xs font-medium mb-1" style="color: var(--charcoal);">Educação Infantil</label>
+                                            <input type="number" id="pondInfantil" class="w-full px-2 py-1 text-sm border rounded" value="1.0" min="0.1" max="3.0" step="0.05" style="border-color: var(--warm-sand);">
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium mb-1" style="color: var(--charcoal);">Fund. I (1º-5º)</label>
+                                            <input type="number" id="pondFundI" class="w-full px-2 py-1 text-sm border rounded" value="1.0" min="0.1" max="3.0" step="0.05" style="border-color: var(--warm-sand);">
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium mb-1" style="color: var(--charcoal);">Fund. II (6º-9º)</label>
+                                            <input type="number" id="pondFundII" class="w-full px-2 py-1 text-sm border rounded" value="1.15" min="0.1" max="3.0" step="0.05" style="border-color: var(--warm-sand);">
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium mb-1" style="color: var(--charcoal);">Médio Integral</label>
+                                            <input type="number" id="pondMedioInt" class="w-full px-2 py-1 text-sm border rounded" value="1.30" min="0.1" max="3.0" step="0.05" style="border-color: var(--warm-sand);">
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium mb-1" style="color: var(--charcoal);">Médio Parcial</label>
+                                            <input type="number" id="pondMedioPar" class="w-full px-2 py-1 text-sm border rounded" value="1.25" min="0.1" max="3.0" step="0.05" style="border-color: var(--warm-sand);">
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium mb-1" style="color: var(--charcoal);">EJA</label>
+                                            <input type="number" id="pondEJA" class="w-full px-2 py-1 text-sm border rounded" value="0.80" min="0.1" max="3.0" step="0.05" style="border-color: var(--warm-sand);">
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium mb-1" style="color: var(--charcoal);">Ed. Especial</label>
+                                            <input type="number" id="pondEspecial" class="w-full px-2 py-1 text-sm border rounded" value="1.20" min="0.1" max="3.0" step="0.05" style="border-color: var(--warm-sand);">
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium mb-1" style="color: var(--charcoal);">Ed. Profissional</label>
+                                            <input type="number" id="pondProfissional" class="w-full px-2 py-1 text-sm border rounded" value="1.20" min="0.1" max="3.0" step="0.05" style="border-color: var(--warm-sand);">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex space-x-3 mt-4">
+                                        <button type="button" id="resetPonderacoes" class="text-sm px-3 py-1 rounded text-white" style="background: var(--stone-gray);">
+                                            <i class="fas fa-undo mr-1"></i>Valores Oficiais
+                                        </button>
+                                        <button type="button" id="aplicarPonderacoes" class="text-sm px-3 py-1 rounded text-white" style="background: var(--mocha-mousse);">
+                                            <i class="fas fa-check mr-1"></i>Aplicar Alterações
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Simulation Section -->
+                            <div class="bg-white p-4 rounded-lg border">
+                                <h4 class="font-semibold text-gray-700 mb-4">
+                                    <i class="fas fa-edit mr-2"></i>Simular Alteração de Matrículas
+                                </h4>
+                                
+                                <form id="municipalSimulator" class="space-y-4">
+                                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-medium text-gray-700 mb-1">Educação Infantil</label>
+                                            <input type="number" id="simInfantil" class="calculator-input w-full px-2 py-1 text-sm border border-gray-300 rounded" min="0">
+                                            <p class="text-xs text-gray-500 mt-1" id="displayPondInfantil">Ponderação: 1,0</p>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium text-gray-700 mb-1">Fund. I (1º-5º)</label>
+                                            <input type="number" id="simFundI" class="calculator-input w-full px-2 py-1 text-sm border border-gray-300 rounded" min="0">
+                                            <p class="text-xs text-gray-500 mt-1" id="displayPondFundI">Ponderação: 1,0</p>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium text-gray-700 mb-1">Fund. II (6º-9º)</label>
+                                            <input type="number" id="simFundII" class="calculator-input w-full px-2 py-1 text-sm border border-gray-300 rounded" min="0">
+                                            <p class="text-xs text-gray-500 mt-1" id="displayPondFundII">Ponderação: 1,15</p>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium text-gray-700 mb-1">Médio Integral</label>
+                                            <input type="number" id="simMedioInt" class="calculator-input w-full px-2 py-1 text-sm border border-gray-300 rounded" min="0">
+                                            <p class="text-xs text-gray-500 mt-1" id="displayPondMedioInt">Ponderação: 1,30</p>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium text-gray-700 mb-1">Médio Parcial</label>
+                                            <input type="number" id="simMedioPar" class="calculator-input w-full px-2 py-1 text-sm border border-gray-300 rounded" min="0">
+                                            <p class="text-xs text-gray-500 mt-1" id="displayPondMedioPar">Ponderação: 1,25</p>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium text-gray-700 mb-1">EJA</label>
+                                            <input type="number" id="simEJA" class="calculator-input w-full px-2 py-1 text-sm border border-gray-300 rounded" min="0">
+                                            <p class="text-xs text-gray-500 mt-1" id="displayPondEJA">Ponderação: 0,80</p>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium text-gray-700 mb-1">Ed. Especial</label>
+                                            <input type="number" id="simEspecial" class="calculator-input w-full px-2 py-1 text-sm border border-gray-300 rounded" min="0">
+                                            <p class="text-xs text-gray-500 mt-1" id="displayPondEspecial">Ponderação: 1,20</p>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-xs font-medium text-gray-700 mb-1">Ed. Profissional</label>
+                                            <input type="number" id="simProfissional" class="calculator-input w-full px-2 py-1 text-sm border border-gray-300 rounded" min="0">
+                                            <p class="text-xs text-gray-500 mt-1" id="displayPondProfissional">Ponderação: 1,20</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex space-x-3">
+                                        <button type="button" id="copyCurrentData" class="text-white px-4 py-2 rounded-md transition-colors text-sm" style="background: var(--stone-gray);" onmouseover="this.style.background='var(--rich-earth)'" onmouseout="this.style.background='var(--stone-gray)'">
+                                            <i class="fas fa-copy mr-2"></i>Copiar Dados Atuais
+                                        </button>
+                                        <button type="submit" class="calculator-button text-white px-4 py-2 rounded-md transition-colors text-sm" style="background: var(--mocha-mousse);" onmouseover="this.style.background='var(--rich-earth)'" onmouseout="this.style.background='var(--mocha-mousse)'">
+                                            <i class="fas fa-calculator mr-2"></i>Simular Impacto
+                                        </button>
+                                        <button type="button" id="resetSimulation" class="text-white px-4 py-2 rounded-md transition-colors text-sm" style="background: var(--error);" onmouseover="this.style.background='#b06950'" onmouseout="this.style.background='var(--error)'">
+                                            <i class="fas fa-undo mr-2"></i>Limpar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Simulation Results -->
+                            <div id="simulationResults" class="hidden p-4 rounded-lg border" style="background: linear-gradient(135deg, var(--cream-white) 0%, #faf8f5 100%); border-color: var(--warm-sand);">
+                                <h4 class="font-semibold mb-4" style="color: var(--mocha-mousse);">
+                                    <i class="fas fa-chart-bar mr-2"></i>Resultados da Simulação
+                                </h4>
+                                <div id="simulationContent">
+                                    <!-- Results will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VAAR Simulator -->
+                <div id="vaar-simulator" class="simulator-content hidden">
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4 text-purple-600">
+                                <i class="fas fa-trophy mr-2"></i>Simulação VAAR
+                            </h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                Simule a complementação VAAR baseada em indicadores de resultado e condicionalidades.
+                            </p>
+                            
+                            <form id="vaarCalculator" class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        Matrículas Elegíveis VAAR
+                                    </label>
+                                    <input type="number" id="vaarMatriculas" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: 150000" value="150000">
+                                    <p class="text-xs text-gray-500 mt-1">Apenas entes que cumpriram condicionalidades</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        Indicador de Atendimento (0-1)
+                                    </label>
+                                    <input type="number" id="vaarAtendimento" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: 0.85" value="0.85" step="0.01" min="0" max="1">
+                                    <p class="text-xs text-gray-500 mt-1">Baseado na universalização do acesso</p>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        Indicador de Aprendizagem (0-1)
+                                    </label>
+                                    <input type="number" id="vaarAprendizagem" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: 0.75" value="0.75" step="0.01" min="0" max="1">
+                                    <p class="text-xs text-gray-500 mt-1">Baseado em resultados do SAEB</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        Indicador de Redução de Desigualdades (0-1)
+                                    </label>
+                                    <input type="number" id="vaarDesigualdade" class="calculator-input w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: 0.70" value="0.70" step="0.01" min="0" max="1">
+                                    <p class="text-xs text-gray-500 mt-1">Melhoria da equidade entre grupos</p>
+                                </div>
+
+                                <div class="bg-gray-50 p-3 rounded">
+                                    <h4 class="text-sm font-semibold mb-2">Condicionalidades Cumpridas:</h4>
+                                    <div class="space-y-1 text-xs">
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="condCAQi" checked class="mr-2"> Aplicação do CAQi
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="condTransparencia" checked class="mr-2"> Transparência
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="condSiope" checked class="mr-2"> Prestação SIOPE
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="calculator-button w-full text-white py-2 px-4 rounded-md transition-colors" style="background: var(--dusty-rose);" onmouseover="this.style.background='var(--warning)'" onmouseout="this.style.background='var(--dusty-rose)'">
+                                    <i class="fas fa-calculator mr-2"></i>Calcular VAAR
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4">Resultado VAAR</h3>
+                            <div id="vaarResult" class="result-card bg-purple-50 p-4 rounded-lg">
+                                <p class="text-gray-600 text-center">Defina os indicadores e condicionalidades para calcular a elegibilidade ao VAAR.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <div class="flex">
+                        <i class="fas fa-exclamation-triangle text-yellow-600 mt-1 mr-3"></i>
+                        <div>
+                            <h4 class="font-semibold text-yellow-800">Aviso Importante</h4>
+                            <p class="text-sm text-yellow-700 mt-1">
+                                Estas são calculadoras educativas baseadas na metodologia oficial. Os cálculos reais envolvem dados e variáveis adicionais gerenciados pelo FNDE/MEC.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Glossário -->
+        <section id="glossario" class="mb-12">
+            <div class="section-card bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-gray-600 mb-4">
+                    <i class="fas fa-book mr-3"></i>Glossário de Termos
+                </h2>
+                
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="glossary-item border-l-4 border-blue-500 pl-4">
+                            <h4 class="font-semibold text-gray-800">VAAF</h4>
+                            <p class="text-sm text-gray-600">Valor Anual por Aluno do Fundeb - valor mínimo garantido por aluno em cada estado.</p>
+                        </div>
+                        
+                        <div class="glossary-item border-l-4 border-green-500 pl-4">
+                            <h4 class="font-semibold text-gray-800">VAAT</h4>
+                            <p class="text-sm text-gray-600">Valor Anual por Aluno Total - considera toda receita vinculada à educação do ente federado.</p>
+                        </div>
+                        
+                        <div class="glossary-item border-l-4 border-purple-500 pl-4">
+                            <h4 class="font-semibold text-gray-800">VAAR</h4>
+                            <p class="text-sm text-gray-600">Valor por Aluno-Resultado - modalidade baseada em melhoria de indicadores educacionais.</p>
+                        </div>
+                        
+                        <div class="glossary-item border-l-4 border-orange-500 pl-4">
+                            <h4 class="font-semibold text-gray-800">Coeficiente de Distribuição</h4>
+                            <p class="text-sm text-gray-600">Proporção das matrículas ponderadas de cada ente em relação ao total do estado.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="glossary-item border-l-4 border-red-500 pl-4">
+                            <h4 class="font-semibold text-gray-800">Matrículas Ponderadas</h4>
+                            <p class="text-sm text-gray-600">Matrículas com pesos aplicados conforme etapa, modalidade, jornada e tipo de estabelecimento.</p>
+                        </div>
+                        
+                        <div class="glossary-item border-l-4 border-indigo-500 pl-4">
+                            <h4 class="font-semibold text-gray-800">SICONFI</h4>
+                            <p class="text-sm text-gray-600">Sistema de Informações Contábeis e Fiscais do Setor Público Brasileiro.</p>
+                        </div>
+                        
+                        <div class="glossary-item border-l-4 border-pink-500 pl-4">
+                            <h4 class="font-semibold text-gray-800">SIOPE</h4>
+                            <p class="text-sm text-gray-600">Sistema de Informações sobre Orçamentos Públicos em Educação.</p>
+                        </div>
+                        
+                        <div class="glossary-item border-l-4 border-yellow-500 pl-4">
+                            <h4 class="font-semibold text-gray-800">SAEB</h4>
+                            <p class="text-sm text-gray-600">Sistema de Avaliação da Educação Básica - usado para indicadores do VAAR.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h3 class="text-lg font-semibold mb-2">FUNDEB - Explicação do Cálculo</h3>
+                <p class="text-gray-400 text-sm mb-4">
+                    Material educativo baseado na Lei nº 14.113/2020 e no Decreto nº 10.656/2021
+                </p>
+                <div class="flex justify-center space-x-4 text-sm text-gray-400">
+                    <span><i class="fas fa-gavel mr-1"></i>Lei nº 14.113/2020</span>
+                    <span><i class="fas fa-file-alt mr-1"></i>Decreto nº 10.656/2021</span>
+                    <span><i class="fas fa-calendar mr-1"></i>2024</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/real-data-structure.js"></script>
+    <script src="js/fundeb-real-data-processor.js"></script>
+    <script src="js/force-refresh.js"></script>
+    <script src="js/test-campina.js"></script>
+    <script src="js/debug-selection.js"></script>
+    <script src="js/fundeb-official-rules.js"></script>
+    <script src="js/fundeb.js"></script>
+</body>
+</html>

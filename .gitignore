@@ -1,0 +1,8 @@
+echo "node_modules/
+dist/
+build/
+.env
+__pycache__/
+*.pyc
+.venv/
+.vscode/" > .gitignore

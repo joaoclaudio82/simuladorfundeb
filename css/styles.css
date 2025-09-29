@@ -1,0 +1,663 @@
+/* FUNDEB Custom Styles - Pantone 2025 Color Palette */
+
+/* === PANTONE 2025 COLOR VARIABLES === */
+:root {
+    /* Primary Pantone 2025 Colors */
+    --mocha-mousse: #A0956B;        /* Main Pantone 2025 color */
+    --warm-sand: #D4C4A0;           /* Light variation */
+    --rich-earth: #8B7355;         /* Dark variation */
+    --deep-cocoa: #6B5B42;         /* Deepest shade */
+    
+    /* Complementary Modern Colors */
+    --sage-green: #9CAF88;          /* Natural complement */
+    --dusty-rose: #D4A574;          /* Warm accent */
+    --stone-gray: #B5AFA3;          /* Neutral */
+    --cream-white: #F5F2ED;         /* Light background */
+    --charcoal: #2D2922;            /* Dark text */
+    
+    /* Functional Colors */
+    --success: #7A9471;             /* Green tones */
+    --warning: #E6B366;             /* Orange tones */
+    --error: #C4785C;               /* Red tones */
+    --info: #A0956B;                /* Primary for info */
+}
+
+/* Enhanced animations and transitions */
+.fade-in {
+    animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.8s ease-out;
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.slide-in-right {
+    animation: slideInRight 0.8s ease-out;
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Enhanced section cards with Pantone 2025 styling */
+.section-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(160, 149, 107, 0.1), 0 1px 2px rgba(160, 149, 107, 0.06);
+    background: linear-gradient(135deg, var(--cream-white) 0%, #fefcf8 100%);
+    border: 1px solid var(--warm-sand);
+}
+
+.section-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(160, 149, 107, 0.2), 0 4px 6px rgba(160, 149, 107, 0.15);
+    border-color: var(--mocha-mousse);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Navigation enhancements with Pantone 2025 */
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+    color: var(--charcoal);
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--mocha-mousse), var(--rich-earth));
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+    width: 80%;
+}
+
+.nav-link:hover {
+    color: var(--mocha-mousse);
+}
+
+/* Chart containers with Pantone 2025 styling */
+.chart-container {
+    position: relative;
+    height: 400px;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--cream-white) 0%, #faf8f5 100%);
+    border-radius: 12px;
+    border: 1px solid var(--warm-sand);
+    box-shadow: 0 2px 8px rgba(160, 149, 107, 0.1);
+}
+
+/* Enhanced cards for complementation section */
+.complementation-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.complementation-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.complementation-card:hover::before {
+    transform: translateX(100%);
+}
+
+.complementation-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced table styling with Pantone 2025 */
+.implementation-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(160, 149, 107, 0.2);
+}
+
+.implementation-table th {
+    background: linear-gradient(135deg, var(--mocha-mousse) 0%, var(--rich-earth) 100%);
+    color: white;
+    position: relative;
+}
+
+.implementation-table th::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.implementation-table tbody tr {
+    transition: all 0.2s ease;
+    color: #1f2937;
+}
+
+.implementation-table tbody tr:hover {
+    background: linear-gradient(90deg, #fff7ed, #ffedd5) !important;
+    color: #1f2937 !important;
+    transform: scale(1.01);
+}
+
+/* Calculator section enhancements - Fixed contrast */
+.calculator-input {
+    transition: all 0.3s ease;
+    border: 2px solid #e5e7eb;
+    color: #1f2937;
+    background-color: white;
+}
+
+.calculator-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    transform: translateY(-1px);
+    color: #1f2937;
+}
+
+.calculator-button {
+    background: linear-gradient(135deg, var(--mocha-mousse) 0%, var(--rich-earth) 100%);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+.calculator-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.6s ease;
+}
+
+.calculator-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.calculator-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(160, 149, 107, 0.3);
+    background: linear-gradient(135deg, var(--rich-earth) 0%, var(--deep-cocoa) 100%);
+}
+
+/* Results display enhancements - Fixed contrast */
+.result-card {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 1px solid #bae6fd;
+    position: relative;
+    overflow: hidden;
+    color: #1f2937;
+}
+
+.result-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #0ea5e9, #0284c7, #0369a1);
+}
+
+/* Glossary enhancements - Fixed contrast */
+.glossary-item {
+    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 1rem;
+    color: #374151;
+}
+
+.glossary-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: currentColor;
+    border-radius: 2px;
+    opacity: 0.3;
+    transition: all 0.3s ease;
+}
+
+.glossary-item:hover {
+    transform: translateX(8px);
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-left: -0.75rem;
+    color: #1f2937;
+}
+
+.glossary-item:hover::before {
+    opacity: 1;
+    width: 6px;
+}
+
+/* Mobile responsiveness improvements */
+@media (max-width: 768px) {
+    .chart-container {
+        height: 300px;
+        padding: 0.5rem;
+    }
+    
+    .section-card {
+        margin-bottom: 1rem;
+        padding: 1rem;
+    }
+    
+    .complementation-card:hover {
+        transform: translateY(-4px) scale(1.01);
+    }
+    
+    .nav-link {
+        font-size: 0.875rem;
+        padding: 0.5rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    .nav-link,
+    .calculator-button,
+    #calculadora {
+        display: none !important;
+    }
+    
+    .section-card {
+        break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #e5e7eb !important;
+    }
+    
+    .chart-container {
+        height: auto !important;
+        min-height: 300px;
+    }
+}
+
+/* Accessibility improvements - Enhanced contrast */
+.section-card:focus,
+.complementation-card:focus,
+.nav-link:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Force proper text contrast for dynamically generated content */
+.bg-blue-50 .text-blue-600,
+.bg-green-50 .text-green-600,
+.bg-purple-50 .text-purple-600,
+.bg-indigo-50 .text-indigo-600 {
+    color: #1f2937 !important;
+}
+
+.bg-blue-50 .text-blue-700,
+.bg-green-50 .text-green-700,
+.bg-purple-50 .text-purple-700,
+.bg-indigo-50 .text-indigo-700 {
+    color: #1f2937 !important;
+}
+
+/* Ensure all text on light backgrounds is dark enough */
+.bg-gray-50,
+.bg-blue-50,
+.bg-green-50,
+.bg-purple-50,
+.bg-indigo-50,
+.bg-yellow-50,
+.bg-red-50 {
+    color: #1f2937 !important;
+}
+
+/* Ensure button text contrast */
+.bg-blue-500,
+.bg-green-500,
+.bg-purple-500,
+.bg-indigo-500,
+.bg-red-500,
+.bg-gray-500 {
+    color: white !important;
+}
+
+/* Fix potential light text on light background issues */
+.text-gray-300,
+.text-gray-400 {
+    color: #4b5563 !important;
+}
+
+.bg-white .text-gray-300,
+.bg-white .text-gray-400,
+.bg-gray-50 .text-gray-300,
+.bg-gray-50 .text-gray-400 {
+    color: #374151 !important;
+}
+
+/* CRITICAL: Ensure maximum contrast for simulation results */
+#simulationResults * {
+    color: var(--charcoal) !important;
+}
+
+#simulationResults .text-blue-600,
+#simulationResults .text-green-600,
+#simulationResults .text-purple-600,
+#simulationResults .text-indigo-600,
+#simulationResults .text-orange-600 {
+    color: var(--charcoal) !important;
+    font-weight: 600 !important;
+}
+
+#simulationResults .text-blue-700,
+#simulationResults .text-green-700,
+#simulationResults .text-purple-700,
+#simulationResults .text-indigo-700,
+#simulationResults .text-orange-700 {
+    color: var(--charcoal) !important;
+    font-weight: 600 !important;
+}
+
+/* Force dark text on all light backgrounds in simulation */
+#simulationResults .bg-blue-50,
+#simulationResults .bg-green-50,
+#simulationResults .bg-purple-50,
+#simulationResults .bg-orange-50,
+#simulationResults .bg-indigo-50,
+#simulationResults .bg-gray-50 {
+    color: var(--charcoal) !important;
+}
+
+#simulationResults .bg-blue-50 *,
+#simulationResults .bg-green-50 *,
+#simulationResults .bg-purple-50 *,
+#simulationResults .bg-orange-50 *,
+#simulationResults .bg-indigo-50 *,
+#simulationResults .bg-gray-50 * {
+    color: var(--charcoal) !important;
+}
+
+/* Fix any remaining contrast issues in tables */
+table th {
+    color: white !important;
+}
+
+table td {
+    color: var(--charcoal) !important;
+    font-weight: 500 !important;
+}
+
+/* Ensure form elements have proper contrast */
+input, select, textarea {
+    color: var(--charcoal) !important;
+    background-color: white !important;
+    font-weight: 500 !important;
+}
+
+input:disabled, select:disabled, textarea:disabled {
+    color: #6b7280 !important;
+    background-color: #f9fafb !important;
+}
+
+/* CRITICAL: Force high contrast for all simulation elements */
+#simulationResults h4,
+#simulationResults h5,
+#simulationResults h6 {
+    color: var(--charcoal) !important;
+    font-weight: bold !important;
+    text-shadow: none !important;
+}
+
+#simulationResults .font-medium,
+#simulationResults .font-semibold,
+#simulationResults .font-bold {
+    font-weight: bold !important;
+}
+
+/* Ensure all spans in simulation have proper contrast */
+#simulationResults span {
+    color: inherit !important;
+    font-weight: 600 !important;
+}
+
+/* Override any Tailwind classes that might reduce contrast */
+#simulationResults .text-xs {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+}
+
+#simulationResults .text-sm {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+}
+
+/* Force proper contrast for values and labels */
+#simulationResults .flex.justify-between span {
+    color: inherit !important;
+    font-weight: 600 !important;
+}
+
+/* Loading states */
+.loading-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Enhanced tooltips */
+.tooltip {
+    position: relative;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1f2937;
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.tooltip::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(1px);
+    border: 4px solid transparent;
+    border-top-color: #1f2937;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.tooltip:hover::after,
+.tooltip:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+}
+
+/* Enhanced progress indicators */
+.progress-bar {
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    border-radius: 4px;
+    transition: width 1s ease-in-out;
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    100% { transform: translateX(100%); }
+}
+
+/* Simulator tabs styling */
+.simulator-tab {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.simulator-tab:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.simulator-content {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Progress bars for VAAR indicators */
+.progress-indicator {
+    transition: width 1s ease-in-out;
+}
+
+/* Enhanced result cards */
+.result-card {
+    animation: slideInRight 0.6s ease-out;
+}
+
+/* Responsive simulator layout */
+@media (max-width: 768px) {
+    .simulator-tab {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.25rem;
+    }
+    
+    .simulator-content {
+        padding: 0.5rem 0;
+    }
+}
+
+/* Dark mode support - Enhanced contrast */
+@media (prefers-color-scheme: dark) {
+    .section-card {
+        background: #1f2937;
+        color: #f9fafb;
+    }
+    
+    .chart-container {
+        background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        border-color: #374151;
+        color: #f9fafb;
+    }
+    
+    .calculator-input {
+        background: #374151;
+        border-color: #4b5563;
+        color: #f9fafb;
+    }
+    
+    .calculator-input:focus {
+        border-color: #60a5fa;
+        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+        color: #f9fafb;
+    }
+    
+    .simulator-tab {
+        color: #d1d5db;
+    }
+    
+    .simulator-tab:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #f9fafb;
+    }
+    
+    .result-card {
+        background: #374151;
+        color: #f9fafb;
+        border-color: #4b5563;
+    }
+    
+    .glossary-item {
+        color: #d1d5db;
+    }
+    
+    .glossary-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: #f9fafb;
+    }
+}
