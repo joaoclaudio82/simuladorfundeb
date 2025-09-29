@@ -1,0 +1,258 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+main {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.input-section h2 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 2px solid #ecf0f1;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+
+.form-group h3 {
+    color: #34495e;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.input-row label {
+    flex: 1;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.input-row input {
+    width: 120px;
+    padding: 8px 12px;
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin: 0 15px;
+    text-align: right;
+    transition: border-color 0.3s ease;
+}
+
+.input-row input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.input-row span {
+    font-weight: 500;
+    color: #7f8c8d;
+    min-width: 80px;
+}
+
+.form-group > label {
+    display: block;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.form-group > input {
+    width: 200px;
+    padding: 12px 15px;
+    border: 2px solid #bdc3c7;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    text-align: right;
+}
+
+.form-group small {
+    display: block;
+    color: #7f8c8d;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+#calcular-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 20px;
+}
+
+#calcular-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+}
+
+.results-section {
+    margin-top: 30px;
+    padding: 25px;
+    background: #ecf0f1;
+    border-radius: 10px;
+    border-left: 5px solid #27ae60;
+}
+
+.results-section h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.result-item.total {
+    background: linear-gradient(135deg, #27ae60, #229954);
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.result-label {
+    flex: 1;
+}
+
+.result-value {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.result-item.total .result-value {
+    color: white;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    color: white;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .input-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .input-row label {
+        margin-bottom: 5px;
+    }
+    
+    .input-row input {
+        margin: 5px 0;
+        width: 100%;
+    }
+    
+    .form-group > input {
+        width: 100%;
+    }
+}
+
+/* Animações */
+.form-group {
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.results-section {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
